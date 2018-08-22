@@ -2,7 +2,7 @@
   "name": "mongo-registry",
   "version": "1.0.4",
   "description": "Gère les montée de version du schéma mongo au niveau applicatif.",
-  "main": "index.js",
+  "main": "dist/index.js",
   "files": [
     "dist"
   ],
@@ -18,7 +18,7 @@
     "compare-versions": "3.3.0",
     "fraction.js": "4.0.4",
     "lodash": "4.17.5",
-    "mongo-connexion": "1.1.1",
+    "mongo-connexion": "1.1.2",
     "test-api-express-mongo": "1.0.2"
   },
   "devDependencies": {
