@@ -1,7 +1,7 @@
 import chai from 'chai'
 import {expect} from 'chai'
 import {isValidId, isValidIds, object, objectNoEx, objects, validId, validIds} from "../src/index"
-import mongo from 'mongodb'
+import mongodb from 'mongodb'
 
 chai.should()
 
@@ -40,15 +40,15 @@ describe('TU query', function () {
     })
     
     it('object', async function () {
-        object(id).should.deep.equal(new mongo.ObjectID(id))
+        object(id).should.deep.equal(new mongodb.ObjectID(id))
     })
     
     it('objects', async function () {
-        objects(id).should.deep.equal([new mongo.ObjectID(id)])
+        objects(id).should.deep.equal([new mongodb.ObjectID(id)])
     })
     
     it('give objectId from id', async function () {
-        objectNoEx(id).should.deep.equal(new mongo.ObjectID(id))
+        objectNoEx(id).should.deep.equal(new mongodb.ObjectID(id))
     })
     
     it('gives null since id is bad', async function () {

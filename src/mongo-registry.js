@@ -46,7 +46,7 @@ const hex = /^[a-f\d]{24}$/i;
 export const objects = ids => Array.isArray(ids) ? map(ids, object) : [object(ids)];
 export const object = id => new mongodb.ObjectID(id)
 
-export const createObjectId = () => new mongo.ObjectID()
+export const createObjectId = () => new mongodb.ObjectID()
 
 export const isValidId = _id => hex.test(_id);
 export const isValidIds = _ids => Array.isArray(_ids) ? filter(map(_ids, isValidId), item => item).length === _ids.length : isValidId(_ids);
