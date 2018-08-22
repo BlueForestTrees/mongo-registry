@@ -21,7 +21,7 @@
     "mongo-connexion": "1.1.2"
   },
   "devDependencies": {
-    "test-api-express-mongo": "1.0.5",
+    "test-api-express-mongo": "1.0.6",
     "babel-cli": "6.26.0",
     "babel-plugin-transform-builtin-extend": "1.1.2",
     "babel-plugin-transform-runtime": "6.23.0",
