@@ -1,16 +1,33 @@
 import compareVersions from 'compare-versions';
+const debug = require('debug')('api:mongo-registry')
+import _mongodb from 'mongodb'
 import {filter, forEach} from 'lodash';
-import {dbConnect, mongodb, col as dbcol} from "mongo-connexion";
 import {map} from 'lodash'
+
+let database = null
+const auth = ENV => (ENV.DB_USER && ENV.DB_PWD) ? (ENV.DB_USER + ":" + ENV.DB_PWD + "@") : ""
+
+export const dbConnect = (ENV) => Promise
+    .resolve(`mongodb://${auth(ENV)}${ENV.DB_HOST}:${ENV.DB_PORT}/${ENV.DB_NAME}?authSource=admin`)
+    .then(url => {
+        debug(`CONNECTING TO %o`, url)
+        return _mongodb.MongoClient.connect(url, {useNewUrlParser: true})
+    })
+    .then(client => {
+        debug("CONNECTED")
+        database = client.db(ENV.DB_NAME)
+    })
+
+export const col = collectionName => database.collection(collectionName)
+export const mongodb = _mongodb
 
 export const VERSION_COLLECTION = "VersionCollection";
 
-export const col = dbcol;
 export const getLastVersion = async () => {
     const v = await col("VersionCollection").find().sort({date: -1}).limit(1).next();
     return v && v.version || "0.0.0"
 };
-export const setLastVersion = version => col("VersionCollection").insert({date: new Date(), version});
+export const setLastVersion = version => col("VersionCollection").insertOne({date: new Date(), version});
 
 export const dbInit = (ENV, registry) =>
     dbConnect(ENV)
@@ -21,7 +38,7 @@ export async function upgradeDb(currentAppVersion, registry) {
     const comparison = compareVersions(currentAppVersion, currentDbVersion);
     
     if (comparison > 0) {
-        console.log(`upgrade db ${currentDbVersion} => ${currentAppVersion}`);
+        debug(`upgrade db ${currentDbVersion} => ${currentAppVersion}`);
         dbUpgrade(
             filter(registry, update =>
                 compareVersions(update.version, currentDbVersion) > 0
@@ -29,9 +46,9 @@ export async function upgradeDb(currentAppVersion, registry) {
         );
         setLastVersion(currentAppVersion);
     } else if (comparison === 0) {
-        console.log(`db up to date (${currentDbVersion})`);
+        debug(`db up to date (${currentDbVersion})`);
     } else {
-        console.log(`db is forward (${currentDbVersion})`);
+        debug(`db is forward (${currentDbVersion})`);
     }
 }
 

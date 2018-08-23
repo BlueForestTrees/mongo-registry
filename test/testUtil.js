@@ -1,7 +1,7 @@
 import chai from 'chai'
 import {expect} from 'chai'
-import {isValidId, isValidIds, object, objectNoEx, objects, validId, validIds} from "../src/index"
-import mongodb from 'mongodb'
+import {isValidId, isValidIds, object, objectNoEx, objects} from "../src"
+import {mongodb} from "../src"
 
 chai.should()
 

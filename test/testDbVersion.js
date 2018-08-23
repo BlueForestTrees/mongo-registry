@@ -1,8 +1,7 @@
-import {dbInit, getLastVersion, setLastVersion, VERSION_COLLECTION} from "../src";
+import {col, dbInit, getLastVersion, setLastVersion, VERSION_COLLECTION} from "../src";
 import {withTest} from "test-api-express-mongo/dist/api";
 import {initDatabase} from "test-api-express-mongo/dist/db";
 import {cols} from "test-api-express-mongo/dist/domain";
-import {col} from "mongo-connexion";
 import ENV from "./env";
 import {expect} from 'chai';
 
@@ -18,7 +17,6 @@ const add101Version = withTest({
         }
     }
 });
-
 const emptyRegistry = [];
 const someData = {mail: "toto@bf.org",clearpassword: "tirlititi",god: true};
 const addUserRegistry = [{

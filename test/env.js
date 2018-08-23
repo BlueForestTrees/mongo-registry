@@ -5,6 +5,8 @@ const ENV = {
     DB_HOST: process.env.DB_HOST || "localhost",
     DB_PORT: process.env.DB_PORT || 27017,
     DB_UPGRADE: process.env.DB_UPGRADE || "NONE",
+    DB_USER: process.env.DB_USER || "doudou",
+    DB_PWD: process.env.DB_PWD || "masta",
 };
 
 ENV.VERSION = "1.0.0";
