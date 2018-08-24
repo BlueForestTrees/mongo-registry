@@ -54,7 +54,7 @@ export async function upgradeDb(currentAppVersion, registry) {
 
 const dbUpgrade = updates => forEach(updates, doUpdate);
 const doUpdate = async update => {
-    console.log(`${update.version}-${update.log}...`);
+    debug(`${update.version}-${update.log}...`);
     await update.script();
 };
 
