@@ -1,4 +1,4 @@
-import {debug} from 'test-api-express-mongo/dist/util'
+const debug = require('debug')('test:mongo:registry')
 
 const ENV = {
     DB_NAME: process.env.DB_NAME || "BlueForestTreesDB",
@@ -11,6 +11,6 @@ const ENV = {
 
 ENV.VERSION = "1.0.0";
 
-debug({ENV});
+debug("ENV", JSON.stringify(ENV))
 
 export default ENV;

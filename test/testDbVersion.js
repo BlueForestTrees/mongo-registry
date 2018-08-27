@@ -1,7 +1,7 @@
 import {col, dbInit, getLastVersion, setLastVersion, VERSION_COLLECTION} from "../src";
-import {withTest} from "test-api-express-mongo/dist/api";
-import {initDatabase} from "test-api-express-mongo/dist/db";
-import {cols} from "test-api-express-mongo/dist/domain";
+import {withTest} from "test-api-express-mongo";
+import {initDatabase} from "test-api-express-mongo";
+import {cols} from "test-api-express-mongo";
 import ENV from "./env";
 import {expect} from 'chai';
 
@@ -11,6 +11,7 @@ const add101Version = withTest({
             colname: VERSION_COLLECTION,
             doc: {
                 _id:"5b3f56df46e9b64b847494a5",
+                name:"test",
                 version:"1.0.1",
                 date: new Date()
             }
@@ -41,17 +42,17 @@ describe('Versions', async function () {
     beforeEach(initDatabase(ENV,{version:VERSION_COLLECTION}));
 
     it('get Init version', async function () {
-        (await getLastVersion()).should.be.equal("0.0.0");
+        (await getLastVersion("name")).should.be.equal("0.0.0");
     });
 
     it('get Last version', async function () {
         await add101Version();
-        (await getLastVersion()).should.be.equal("1.0.1");
+        (await getLastVersion("test")).should.be.equal("1.0.1");
     });
 
     it('set Last version', async function () {
         await add101Version();
-        await setLastVersion("2.0.0");
-        (await getLastVersion()).should.be.equal("2.0.0");
+        await setLastVersion("test","2.0.0");
+        (await getLastVersion("test")).should.be.equal("2.0.0");
     });
 });

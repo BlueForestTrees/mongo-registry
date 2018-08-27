@@ -23,18 +23,18 @@ export const mongodb = _mongodb
 
 export const VERSION_COLLECTION = "VersionCollection";
 
-export const getLastVersion = async () => {
-    const v = await col("VersionCollection").find().sort({date: -1}).limit(1).next();
+export const getLastVersion = async (name) => {
+    const v = await col(VERSION_COLLECTION).find({name}).sort({date: -1}).limit(1).next();
     return v && v.version || "0.0.0"
 };
-export const setLastVersion = version => col("VersionCollection").insertOne({date: new Date(), version});
+export const setLastVersion = (name,version) => col(VERSION_COLLECTION).insertOne({name, date: new Date(), version});
 
 export const dbInit = (ENV, registry) =>
     dbConnect(ENV)
-        .then(()=>upgradeDb(ENV.VERSION, registry));
+        .then(()=>upgradeDb(ENV.NAME, ENV.VERSION, registry));
 
-export async function upgradeDb(currentAppVersion, registry) {
-    const currentDbVersion = await getLastVersion();
+export async function upgradeDb(name, currentAppVersion, registry) {
+    const currentDbVersion = await getLastVersion(name);
     const comparison = compareVersions(currentAppVersion, currentDbVersion);
     
     if (comparison > 0) {
@@ -44,11 +44,11 @@ export async function upgradeDb(currentAppVersion, registry) {
                 compareVersions(update.version, currentDbVersion) > 0
             ).sort((u1, u2) => compareVersions(u1.version, u2.version))
         );
-        setLastVersion(currentAppVersion);
+        setLastVersion(name, currentAppVersion);
     } else if (comparison === 0) {
-        debug(`db up to date (${currentDbVersion})`);
+        debug(`db up to date (${name}-${currentDbVersion})`);
     } else {
-        debug(`db is forward (${currentDbVersion})`);
+        debug(`db is forward (${name}-${currentDbVersion})`);
     }
 }
 
