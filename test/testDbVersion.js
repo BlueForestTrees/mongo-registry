@@ -5,19 +5,56 @@ import {cols} from "test-api-express-mongo";
 import ENV from "./env";
 import {expect} from 'chai';
 
-const add101Version = withTest({
-    db: {
-        preChange: {
-            colname: VERSION_COLLECTION,
-            doc: {
-                _id:"5b3f56df46e9b64b847494a5",
-                name:"test",
-                version:"1.0.1",
-                date: new Date()
+const add101Version = withTest([
+    {
+        db: {
+            preChange: {
+                colname: VERSION_COLLECTION,
+                doc: {
+                    name:"OTHER",
+                    version:"1.0.2",
+                    date: new Date()
+                }
+            }
+        }
+    },
+    {
+        db: {
+            preChange: {
+                colname: VERSION_COLLECTION,
+                doc: {
+                    name:"OTHER",
+                    version:"1.0.1",
+                    date: new Date()
+                }
+            }
+        }
+    },
+    {
+        db: {
+            preChange: {
+                colname: VERSION_COLLECTION,
+                doc: {
+                    name:"OTHER",
+                    version:"1.0.0",
+                    date: new Date()
+                }
+            }
+        }
+    },
+    {
+        db: {
+            preChange: {
+                colname: VERSION_COLLECTION,
+                doc: {
+                    name:"test",
+                    version:"1.0.1",
+                    date: new Date()
+                }
             }
         }
     }
-});
+]);
 const emptyRegistry = [];
 const someData = {mail: "toto@bf.org",clearpassword: "tirlititi",god: true};
 const addUserRegistry = [{
