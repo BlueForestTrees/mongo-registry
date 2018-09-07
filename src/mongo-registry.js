@@ -66,7 +66,6 @@ export const object = id => new mongodb.ObjectID(id)
 export const createObjectId = () => new mongodb.ObjectID()
 
 export const isValidId = _id => hex.test(_id);
-export const isValidIds = _ids => Array.isArray(_ids) ? filter(map(_ids, isValidId), item => item).length === _ids.length : isValidId(_ids);
 
 export const objectNoEx = _id => isValidId(_id) && object(_id);
 export const withIdIn = ids => ({_id: {$in: ids}});
