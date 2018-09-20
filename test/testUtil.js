@@ -1,6 +1,6 @@
 import chai from 'chai'
 import {expect} from 'chai'
-import {isValidId, isValidIds, object, objectNoEx, objects} from "../src"
+import {isValidId, isValidIds, object, objectNoEx} from "../src"
 import {mongodb} from "../src"
 
 chai.should()
@@ -42,11 +42,7 @@ describe('TU query', function () {
     it('object', async function () {
         object(id).should.deep.equal(new mongodb.ObjectID(id))
     })
-    
-    it('objects', async function () {
-        objects(id).should.deep.equal([new mongodb.ObjectID(id)])
-    })
-    
+
     it('give objectId from id', async function () {
         objectNoEx(id).should.deep.equal(new mongodb.ObjectID(id))
     })
