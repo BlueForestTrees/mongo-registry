@@ -9,7 +9,7 @@ let database = null
 const auth = ENV => (ENV.DB_USER && ENV.DB_PWD) ? (ENV.DB_USER + ":" + ENV.DB_PWD + "@") : ""
 
 export const dbConnect = (ENV) => Promise
-    .resolve(`mongodb://${auth(ENV)}${ENV.DB_HOST}:${ENV.DB_PORT}/${ENV.DB_NAME}?authSource=admin`)
+    .resolve(ENV.DB_CONNECTION_STRING ? ENV.DB_CONNECTION_STRING : `mongodb://${auth(ENV)}${ENV.DB_HOST}:${ENV.DB_PORT}/${ENV.DB_NAME}?authSource=admin`)
     .then(url => {
         debug(`CONNECTING TO %o`, url)
         return _mongodb.MongoClient.connect(url, {useNewUrlParser: true})
