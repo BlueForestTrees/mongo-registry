@@ -14,4 +14,4 @@ ENV.VERSION = "1.0.0";
 
 debug("ENV", JSON.stringify(ENV))
 
-export default ENV;
+module.exports = ENV;

@@ -1,21 +1,32 @@
-import {expect} from 'chai'
-
-import {dbConnect, col} from "../src"
-import ENV from "./env"
+const expect = require('chai').expect
+const registry = require("../src")
+const ENV = require("./env")
 
 describe('connect then insert', async function () {
-    
-    it('Connect', () => dbConnect(ENV))
-    
+
+    it('Connect', function () {
+        return registry.dbConnect(ENV)
+    })
+
     it('Insert',
-        () => dbConnect(ENV)
-            .then(() => col("ConnectCollection").insertOne({field: "value"}))
+        function () {
+            return registry.dbConnect(ENV).then(function () {
+                return registry.col("ConnectCollection").insertOne({field: "value"})
+            })
+        }
     )
-    
+
     it('Insert-Find',
-        () => dbConnect(ENV)
-            .then(() => col("ConnectCollection").insertOne({key: "one"}))
-            .then(async () => expect((await col("ConnectCollection").findOne({key: "one"})).key).to.equal("one"))
+        function () {
+            return registry.dbConnect(ENV).then(function () {
+                return registry.col("ConnectCollection").insertOne({key: "one"})
+            }).then(function () {
+                return registry.col("ConnectCollection").findOne({key: "one"})
+                    .then(function (doc) {
+                        return expect(doc.key).to.equal("one")
+                    })
+            })
+        }
     )
-    
+
 })

@@ -1,7 +1,6 @@
-import chai from 'chai'
-import {expect} from 'chai'
-import {isValidId, isValidIds, object, objectNoEx} from "../src"
-import {mongodb} from "../src"
+const chai = require('chai')
+const expect = require('chai').expect
+const registry = require("../src")
 
 chai.should()
 
@@ -13,42 +12,42 @@ const id = "5a6a03c03e77667641d2d2c3"
 const badId = id + "ee"
 
 describe('TU query', function () {
-    
+
     it('validate a good id', function () {
-        expect(isValidId(id)).is.true
-    })
-    
-    it('invalidate a bad id', function () {
-        expect(isValidId(badId)).is.false
-    })
-    
-    it('validate a good id as array', function () {
-        expect(isValidIds(id)).is.true
-    })
-    
-    it('invalidate a bad id as array', function () {
-        expect(isValidId(badId)).is.false
-    })
-    
-    it('validate a good ids', function () {
-        expect(isValidIds([id, id, id])).is.true
-        expect(isValidIds(['5a6a03c03e77667641d2d2c3', '5a6a03c03e77667641d2d2c3'])).is.true
-    })
-    
-    it('invalidate a bad ids', function () {
-        expect(isValidId([id, badId, id])).is.false
-    })
-    
-    it('object', async function () {
-        object(id).should.deep.equal(new mongodb.ObjectID(id))
+        expect(registry.isValidId(id)).is.true
     })
 
-    it('give objectId from id', async function () {
-        objectNoEx(id).should.deep.equal(new mongodb.ObjectID(id))
+    it('invalidate a bad id', function () {
+        expect(registry.isValidId(badId)).is.false
     })
-    
-    it('gives null since id is bad', async function () {
-        expect(objectNoEx(badId)).to.be.false
+
+    it('validate a good id as array', function () {
+        expect(registry.isValidIds(id)).is.true
     })
-    
+
+    it('invalidate a bad id as array', function () {
+        expect(registry.isValidId(badId)).is.false
+    })
+
+    it('validate a good ids', function () {
+        expect(registry.isValidIds([id, id, id])).is.true
+        expect(registry.isValidIds(['5a6a03c03e77667641d2d2c3', '5a6a03c03e77667641d2d2c3'])).is.true
+    })
+
+    it('invalidate a bad ids', function () {
+        expect(registry.isValidId([id, badId, id])).is.false
+    })
+
+    it('object', function () {
+        registry.object(id).should.deep.equal(registry.object(id))
+    })
+
+    it('give objectId from id', function () {
+        registry.objectNoEx(id).should.deep.equal(registry.object(id))
+    })
+
+    it('gives null since id is bad', function () {
+        expect(registry.objectNoEx(badId)).to.be.false
+    })
+
 })

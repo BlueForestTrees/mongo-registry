@@ -1,14 +1,11 @@
 {
   "name": "mongo-registry",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "Gère les montée de version du schéma mongo au niveau applicatif.",
-  "main": "dist/index.js",
-  "files": [
-    "dist"
-  ],
+  "main": "src/index.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=test mocha --recursive --require babel-register --exit \"test/**.js\"",
-    "build": "rimraf dist && yarn run test && babel src -d dist",
+    "test": "cross-env NODE_ENV=test mocha --recursive --exit \"test/**.js\"",
+    "build": "rimraf dist && yarn run test",
     "prepublishOnly": "npm version patch && npm run build",
     "npmpublish": "npm publish"
   },
@@ -33,28 +30,5 @@
     "rimraf": "2.6.2",
     "test-api-express-mongo": "1.0.13",
     "yarn": "1.7.0"
-  },
-  "babel": {
-    "presets": [
-      "env",
-      "stage-3"
-    ],
-    "plugins": [
-      "transform-runtime",
-      [
-        "transform-builtin-extend",
-        {
-          "globals": [
-            "Error",
-            "Array"
-          ]
-        }
-      ]
-    ],
-    "env": {
-      "test": {
-        "plugins": []
-      }
-    }
   }
 }
