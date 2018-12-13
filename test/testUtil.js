@@ -46,6 +46,11 @@ describe('TU query', function () {
         registry.objectNoEx(id).should.deep.equal(registry.object(id))
     })
 
+    it('createObjectId', function () {
+        registry.createObjectId().should.not.be.null
+        registry.createObjectId().toString().should.have.length(24)
+    })
+
     it('gives null since id is bad', function () {
         expect(registry.objectNoEx(badId)).to.be.false
     })

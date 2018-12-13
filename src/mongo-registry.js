@@ -25,7 +25,7 @@ const object = function (id) {
 }
 
 const createObjectId = function () {
-    new mongodb.ObjectID()
+    return new mongodb.ObjectID()
 }
 
 const isValidId = function (_id) {
