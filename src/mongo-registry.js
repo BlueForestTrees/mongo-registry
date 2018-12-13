@@ -1,7 +1,7 @@
 const compareVersions = require('compare-versions')
 
 const debug = require('debug')('api:mongo-registry')
-const _mongodb = require('mongodb')
+const mongodb = require('mongodb')
 const _ = require('lodash')
 
 let database = null
@@ -21,7 +21,7 @@ const doUpdate = update => {
 const hex = /^[a-f\d]{24}$/i
 
 const object = function (id) {
-    return new _mongodb.ObjectID(id)
+    return new mongodb.ObjectID(id)
 }
 
 const createObjectId = function () {
@@ -50,7 +50,7 @@ const dbConnect = function (ENV) {
         .resolve(ENV.DB_CONNECTION_STRING ? ENV.DB_CONNECTION_STRING : `mongodb://${auth(ENV)}${ENV.DB_HOST}:${ENV.DB_PORT}/${ENV.DB_NAME}?authSource=admin`)
         .then(url => {
             debug(`CONNECTING TO %o`, url)
-            return _mongodb.MongoClient.connect(url, {useNewUrlParser: true})
+            return mongodb.MongoClient.connect(url, {useNewUrlParser: true})
         })
         .then(client => {
             debug("CONNECTED")
@@ -113,7 +113,7 @@ module.exports = {
     withIdIn: withIdIn,
     dbConnect: dbConnect,
     col: col,
-    mongodb: _mongodb,
+    mongodb: mongodb,
     VERSION_COLLECTION: VERSION_COLLECTION,
     getLastVersion: getLastVersion,
     setLastVersion: setLastVersion,
