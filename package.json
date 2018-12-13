@@ -1,6 +1,6 @@
 {
   "name": "mongo-registry",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "description": "Gère les montée de version du schéma mongo au niveau applicatif.",
   "main": "src/index.js",
   "scripts": {
