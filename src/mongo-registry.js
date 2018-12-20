@@ -89,7 +89,7 @@ function upgradeDb(name, currentAppVersion, registry) {
     return getLastVersion(name).then(function (currentDbVersion) {
         const comparison = compareVersions(currentAppVersion, currentDbVersion)
         if (comparison > 0) {
-            debug(`upgrade db ${currentDbVersion} => ${currentAppVersion}`)
+            debug(`upgrade db ${name} ${currentDbVersion} => ${currentAppVersion}`)
             dbUpgrade(
                 _.filter(registry, update =>
                     compareVersions(update.version, currentDbVersion) > 0
