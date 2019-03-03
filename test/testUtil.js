@@ -21,21 +21,8 @@ describe('TU query', function () {
         expect(registry.isValidId(badId)).is.false
     })
 
-    it('validate a good id as array', function () {
-        expect(registry.isValidIds(id)).is.true
-    })
-
     it('invalidate a bad id as array', function () {
         expect(registry.isValidId(badId)).is.false
-    })
-
-    it('validate a good ids', function () {
-        expect(registry.isValidIds([id, id, id])).is.true
-        expect(registry.isValidIds(['5a6a03c03e77667641d2d2c3', '5a6a03c03e77667641d2d2c3'])).is.true
-    })
-
-    it('invalidate a bad ids', function () {
-        expect(registry.isValidId([id, badId, id])).is.false
     })
 
     it('object', function () {

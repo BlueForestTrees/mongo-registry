@@ -2,7 +2,6 @@ const compareVersions = require('compare-versions')
 
 const debug = require('debug')('api:mongo-registry')
 const mongodb = require('mongodb')
-const _ = require('lodash')
 
 let database = null
 
@@ -11,14 +10,18 @@ function auth(ENV) {
 }
 
 const dbUpgrade = function (updates) {
-    _.forEach(updates, doUpdate)
+    if (Array.isArray(updates)) {
+        for (var i = 0; i < updates.length; i++) {
+            doUpdate(updates[i])
+        }
+    }
 }
 const doUpdate = update => {
     debug(`${update.version}-${update.log}...`)
     return update.script()
 }
 
-const hex = /^[a-f\d]{24}$/i
+const hexRegEx = /^[a-f\d]{24}$/i
 
 const object = function (id) {
     return new mongodb.ObjectID(id)
@@ -29,14 +32,8 @@ const createObjectId = function () {
 }
 
 const isValidId = function (_id) {
-    return hex.test(_id)
+    return hexRegEx.test(_id)
 }
-const isValidIds = function (_ids) {
-    return Array.isArray(_ids) ? _.filter(_.map(_ids, isValidId), function (i) {
-        return i
-    }).length === _ids.length : isValidId(_ids)
-}
-
 
 const objectNoEx = function (_id) {
     return isValidId(_id) && object(_id)
@@ -85,15 +82,27 @@ const dbInit = function (ENV, registry) {
         })
 }
 
+const filter = function (array, fct) {
+    const res = []
+    if (Array.isArray(array)) {
+        const length = array.length
+        for (let i = 0; i < length; i++) {
+            if (fct(array[i])) {
+                res.push(array[i])
+            }
+        }
+    }
+    return res
+}
+
 function upgradeDb(name, currentAppVersion, registry) {
     return getLastVersion(name).then(function (currentDbVersion) {
         const comparison = compareVersions(currentAppVersion, currentDbVersion)
         if (comparison > 0) {
             debug(`upgrade db ${name} ${currentDbVersion} => ${currentAppVersion}`)
             dbUpgrade(
-                _.filter(registry, update =>
-                    compareVersions(update.version, currentDbVersion) > 0
-                ).sort((u1, u2) => compareVersions(u1.version, u2.version))
+                filter(registry, update => compareVersions(update.version, currentDbVersion) > 0)
+                    .sort((u1, u2) => compareVersions(u1.version, u2.version))
             )
             setLastVersion(name, currentAppVersion)
         } else if (comparison === 0) {
@@ -109,7 +118,6 @@ module.exports = {
     objectNoEx: objectNoEx,
     createObjectId: createObjectId,
     isValidId: isValidId,
-    isValidIds: isValidIds,
     withIdIn: withIdIn,
     dbConnect: dbConnect,
     col: col,
