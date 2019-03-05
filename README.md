@@ -10,9 +10,19 @@ Example:
 import ENV from "./env"
 import {dbInit, col} from "mongo-registry"
 
+const registry = []//don't use registry now
+
+//init db cinnection
 export default dbInit(ENV, registry)
-    .then(()=>console.log(`What a superb app! ${col('collectionName').findOne()}`))
-    .catch(e => console.error("BOOT ERROR\n", e))
+    
+    //make some insert/find
+    .then(()=>{
+        const db = col('collectionName')
+        await db.insertOne({name:"example",age:35})
+        const doc = col('collectionName').findOne({name:"example"})
+        console.log(`What a superb app! ${doc}`
+    }))
+    .catch(console.error)
 ```
 
 ## Configuration - ```ENV```
