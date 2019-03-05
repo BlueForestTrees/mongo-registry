@@ -1,8 +1,7 @@
 # mongo-registry
 
-Make mongo db connections for you + a db versioning system (registry)
-
-And give you direct access to mongo collections https://docs.mongodb.com/manual/reference/method/js-collection/
+Manage mongodb connections + a db versioning system (registry)
+Give access to mongo collections https://docs.mongodb.com/manual/reference/method/js-collection/
 
 Example:
 
