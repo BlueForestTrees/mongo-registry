@@ -1,7 +1,8 @@
 # mongo-registry
 
-Make mongo db connection for you
-Provide a registry system, handling db version (adding index and so on)
+Make mongo db connection for you.
+
+Provide a registry system, handling db version (adding indexes and so on)
 
 Example:
 
