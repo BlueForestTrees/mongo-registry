@@ -40,11 +40,12 @@ DB_PWD: process.env.DB_PWD || "mydevpassword"
 Note that ```DB_CONNECTION_STRING``` replaces others DB_x fields.
 
 ## Registry - ```registry```
-At connect, mongo-registry will apply the provided registry.
-A registry is a versionned array of actions to perform on the database, like adding indexes and so on.
-Each version is applied only one time, depending on the current app version.
+A registry is a array of versionned actions to perform on the database, like adding indexes and so on.
 
-Registry will use a mongo db collection named 'VersionCollection' to store the last version applied.
+The registry is an elegant way to handle synchronizing db and application versions. 
+When application starts, it will apply the needed registry items.
+
+Registry will use a mongo db collection named 'VersionCollection' to remember which version is applied.
 Many applications can share the same VersionCollection.
 
 
