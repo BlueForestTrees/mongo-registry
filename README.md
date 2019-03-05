@@ -69,3 +69,5 @@ export const registry = [
     }
 ]
 ```
+
+As your application evolves, you just add items in registry, and the application will update the db.
