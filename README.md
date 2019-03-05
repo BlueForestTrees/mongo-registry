@@ -28,7 +28,7 @@ DB_USER: process.env.DB_USER || "myuser",
 DB_PWD: process.env.DB_PWD || "mydevpassword"
 ```
 
-Note that ```DB_CONNECTION_STRING``` replaces others fields.
+Note that ```DB_CONNECTION_STRING``` replaces others DB_x fields.
 
 ## Registry - ```registry```
 At connect, mongo-registry will apply the provided registry.
@@ -39,7 +39,7 @@ Registry will use a mongo db collection named 'VersionCollection' to store the l
 Many applications can share the same VersionCollection.
 
 
-Example: #a registry array containing the versionned actions to perform on a database from scratch#
+Example: # a registry array containing the versionned actions to perform on a database from scratch #
 
 ```
 import ENV from "./env"
