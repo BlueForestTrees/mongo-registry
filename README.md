@@ -28,7 +28,7 @@ export default dbInit(ENV, registry)
 ENV is a configuration object, it should containt the following keys:
 
 ```javascript
-VERSION: version, // comes from package.json version
+VERSION: version, // comes from package.json version, used by registry
 DB_CONNECTION_STRING: process.env.DB_CONNECTION_STRING,
 DB_NAME: process.env.DB_NAME || "mydb",
 DB_HOST: process.env.DB_HOST || "localhost",
