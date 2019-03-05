@@ -49,7 +49,7 @@ Registry will use a mongo db collection named 'VersionCollection' to remember wh
 Many applications can share the same VersionCollection.
 
 
-Example: * a registry array containing the versionned actions to perform on a database from scratch *
+Example: *a registry array containing the versionned actions to perform on a database from scratch*
 
 ```javascript
 import ENV from "./env"
