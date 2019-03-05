@@ -14,7 +14,7 @@ export default dbInit(ENV, registry)
     .catch(e => console.error("BOOT ERROR\n", e))
 ```
 
-##Configuration - ENV
+## Configuration - ENV
 ENV is a configuration object, it should containt the following keys:
 
 ```
@@ -29,7 +29,7 @@ DB_PWD: process.env.DB_PWD || "mydevpassword"
 
 Note that ```DB_CONNECTION_STRING``` replaces others fields.
 
-##Registry - ```registry```
+## Registry - ```registry```
 At connect, mongo-registry will apply the provided registry.
 A registry is a versionned array of actions to perform on the database, like adding indexes and so on.
 Each version is applied only one time, depending on the current app version.
