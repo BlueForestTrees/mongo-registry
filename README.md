@@ -5,7 +5,7 @@ Give access to mongo collections https://docs.mongodb.com/manual/reference/metho
 
 Example:
 
-```
+```javascript
 import ENV from "./env"
 import {dbInit, col} from "mongo-registry"
 
@@ -27,7 +27,7 @@ export default dbInit(ENV, registry)
 ## Configuration - ```ENV```
 ENV is a configuration object, it should containt the following keys:
 
-```
+```javascript
 VERSION: version, // comes from package.json version
 DB_CONNECTION_STRING: process.env.DB_CONNECTION_STRING,
 DB_NAME: process.env.DB_NAME || "mydb",
@@ -50,7 +50,7 @@ Many applications can share the same VersionCollection.
 
 Example: # a registry array containing the versionned actions to perform on a database from scratch #
 
-```
+```javascript
 import ENV from "./env"
 import {col} from "mongo-registry"
 import {PATH_IDX_NAME} from "./const"
