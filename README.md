@@ -1,21 +1,21 @@
 # mongo-registry
 
-Make mongo db connection for you.
+Make mongo db connections for you + a db versioning system (registry)
 
-Provide a registry system, handling db version (adding indexes and so on)
+And give you direct access to mongo collections https://docs.mongodb.com/manual/reference/method/js-collection/
 
 Example:
 
 ```
 import ENV from "./env"
-import {dbInit} from "mongo-registry"
+import {dbInit, col} from "mongo-registry"
 
 export default dbInit(ENV, registry)
-    .then(startExpress(ENV, errorMapper))
+    .then(()=>console.log(`What a superb app! ${col('collectionName').findOne()}`))
     .catch(e => console.error("BOOT ERROR\n", e))
 ```
 
-## Configuration - ENV
+## Configuration - ```ENV```
 ENV is a configuration object, it should containt the following keys:
 
 ```
