@@ -2,7 +2,7 @@ const expect = require('chai').expect
 const registry = require("../src")
 const ENV = require("./env")
 
-describe('connect then insert', async function () {
+describe('connect then insert', function () {
 
     it('Connect', function () {
         return registry.dbConnect(ENV)
